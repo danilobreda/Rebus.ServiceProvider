@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>netstandard2.0</TargetFrameworks>
-		<LangVersion>10</LangVersion>
+		<TargetFrameworks>netstandard20;net60</TargetFrameworks>
+		<LangVersion>11</LangVersion>
 		<Authors>mookid8000</Authors>
 		<PackageProjectUrl>https://rebus.fm/what-is-rebus/</PackageProjectUrl>
 		<Copyright>Copyright Rebus FM ApS 2012</Copyright>
 		<PackageTags>rebus service-provider ioc dependency-injection</PackageTags>
-		<PackageDescription>Provides a service provider-based container adapter for Rebus</PackageDescription>
+		<PackageDescription>Provides a service provider-based container adapter for Rebus (i.e. integration with Microsoft.Extensions.DependencyInjection) as well as integration with the generic host</PackageDescription>
 		<RepositoryUrl>https://github.com/rebus-org/Rebus.ServiceProvider</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
@@ -20,11 +20,15 @@
 			<PackagePath></PackagePath>
 		</None>
 	</ItemGroup>
-	<ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard20'">
 		<PackageReference Include="Rebus" Version="[6.0.0,)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3, 6)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3, 6)" />
 	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[3, 8)" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[3, 8)" />
+	<ItemGroup Condition="'$(TargetFramework)' == 'net60'">
+		<PackageReference Include="Rebus" Version="[6.0.0,)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="[6, 8)" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="[6, 8)" />
+		<PackageReference Include="microsoft.extensions.logging.abstractions" Version="[6, 8)" />
 	</ItemGroup>
 </Project>
